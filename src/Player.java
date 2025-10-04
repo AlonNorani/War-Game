@@ -3,11 +3,16 @@ import java.util.Queue;
 
 public class Player extends Piece{
     protected Queue<Weapon> weapons;
-
-    public Player(Point position) {
+    private int playerNumber;
+    private String name;
+    public Player(Point position, int playerNumber, String name) {
         super(position);
+        this.playerNumber = playerNumber;
+        this.name = name;
         weapons = new LinkedList<>(); // Initialize queue to be empty
     }
+
+
     public void setPosition(Point position) {
         this.position = position;
     }
