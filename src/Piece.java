@@ -1,6 +1,14 @@
+/**
+ * Abstract base class for all entities on the board.
+ * Each Piece has a position.
+ */
 abstract class Piece {
     protected Point position;
 
+    /**
+     * Constructs a Piece at the given position.
+     * @param position the position of the piece
+     */
     public Piece(Point position) {
         this.position = position;
     }
