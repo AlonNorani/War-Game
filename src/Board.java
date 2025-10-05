@@ -19,21 +19,24 @@ public class Board {
 
 
     private Piece[][] board; // 2D array representing the board grid
-    private Vector<Player> players; // List of players on the board
+    private ArrayList<Player> players; // List of players on the board
     private Queue<Player> playerQueue;
 
     /**
-     * Constructs a Board and places players randomly.
-     *
-     * @param playersInfo Map of player IDs to player names
+     * Constructs a Board with empty grid and no players.
      */
-    public Board(Map<Integer, String> playersInfo) {
+    public Board() {
+
+        board = new Piece[ROWS][COLS];
+        players = new ArrayList<>(); // Initialize the players list
+
+    }
+    public void initializeBoard(Map<Integer, String> playersInfo) {
         // validate players amount
         if (playersInfo.size() < MIN_PLAYERS || playersInfo.size() > MAX_PLAYERS) {
             throw new IllegalArgumentException("Players amount must be between" + MIN_PLAYERS + " and " + MAX_PLAYERS);
         }
-        board = new Piece[ROWS][COLS];
-        players = new Vector<>(); // Initialize the players list
+
         // Place players randomly on the board
         for (Map.Entry<Integer, String> entry : playersInfo.entrySet()) {
             Point p = getEmptyRandomPosition();
@@ -41,6 +44,7 @@ public class Board {
             addEntity(newPlayer);
             players.add(newPlayer);
         }
+
         // shuffle players to randomize turn order
         Collections.shuffle(players);
         playerQueue = new LinkedList<>(players);
@@ -61,7 +65,6 @@ public class Board {
         }
 
     }
-
     private void addEntity(Piece piece) {
         Point position = piece.getPosition();
         board[position.getX()][position.getY()] = piece;
@@ -172,5 +175,8 @@ public class Board {
         removeEntity(currentPosition);
         currentPlayer.setPosition(newPosition);
         addEntity(currentPlayer);
+    }
+    public Player getCurrentPlayer() {
+        return playerQueue.element();
     }
 }
