@@ -1,8 +1,10 @@
+package model;
+
 /**
  * Abstract base class for all entities on the board.
  * Each Piece has a position.
  */
-abstract class Piece {
+public abstract class Piece {
     protected Point position;
 
     /**
@@ -13,11 +15,13 @@ abstract class Piece {
         this.position = position;
     }
 
-    public Point getPosition() {
+    Point getPosition() {
         return position;
     }
 
-    public void setPosition(Point position) {
+    void setPosition(Point position) {
         this.position = position;
     }
+
+    public abstract String toString();
 }

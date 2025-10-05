@@ -1,3 +1,4 @@
+package model;
 import java.security.InvalidParameterException;
 import java.util.*;
 
@@ -70,19 +71,19 @@ public class Board {
         board[position.getX()][position.getY()] = piece;
     }
 
-    public void removeEntity(Point position) {
+    private void removeEntity(Point position) {
         board[position.getX()][position.getY()] = null;
     }
 
-    public Piece getEntity(Point position) {
+    private Piece getEntity(Point position) {
         return board[position.getX()][position.getY()];
     }
 
-    public boolean isEmpty(Point position) {
+    private boolean isEmpty(Point position) {
         return board[position.getX()][position.getY()] == null;
     }
 
-    public boolean isInBoard(Point position) {
+    private boolean isInBoard(Point position) {
         return position.getX() >= 0 && position.getX() < ROWS && position.getY() >= 0 && position.getY() < COLS;
     }
 
@@ -175,8 +176,14 @@ public class Board {
         removeEntity(currentPosition);
         currentPlayer.setPosition(newPosition);
         addEntity(currentPlayer);
+        // advance to next player's turn
+        playerQueue.add(playerQueue.remove());
     }
-    public Player getCurrentPlayer() {
-        return playerQueue.element();
+    public String getCurrentPlayerName() {
+        return "Player number " + playerQueue.element().getPlayerNumber() + " (" + playerQueue.element().getName() + ")";
     }
+    public Piece[][] getBoardState() {
+        return board;
+    }
+
 }

@@ -1,5 +1,7 @@
+package view;
+import model.Board;
 public abstract class UserInterfaceAbstract {
-    private Board board;
+    protected Board board;
     public abstract void displayBoard();
     public abstract void startGame();
 
