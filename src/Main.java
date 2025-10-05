@@ -1,8 +1,9 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import model.Board;
+import view.GameConsole;
 public class Main {
     public static void main(String[] args) {
-
-
+        Board gameBoard = new Board();
+        GameConsole consoleUI = new GameConsole(gameBoard);
+        consoleUI.startGame();
     }
 }

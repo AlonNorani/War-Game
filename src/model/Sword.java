@@ -29,6 +29,6 @@ public class Sword extends Weapon {
 
     @Override
     public String toString() {
-        return "\uD83D\uDDE1"; // Unicode for sword emoji
+        return "🗡"; // Unicode for sword emoji
     }
 }

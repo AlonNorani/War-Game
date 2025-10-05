@@ -29,6 +29,6 @@ public class MagicRing extends Weapon {
 
     @Override
     public String toString() {
-        return "\\uD83D\\uDC8D"; // Unicode for ring emoji
+        return "💍"; // Unicode for ring emoji
     }
 }

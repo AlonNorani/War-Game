@@ -15,8 +15,8 @@ public class Board {
     public static final int ROWS = 10;
     public static final int COLS = 10;
     // Player limits
-    private final int MIN_PLAYERS = 2;
-    private final int MAX_PLAYERS = 5;
+    public final int MIN_PLAYERS = 2;
+    public final int MAX_PLAYERS = 5;
 
 
     private Piece[][] board; // 2D array representing the board grid
@@ -104,16 +104,16 @@ public class Board {
         Point newPosition = new Point(currentPosition.getX(), currentPosition.getY());
         switch (Character.toUpperCase(direction)) {
             case 'U':
-                newPosition.setY((short) (newPosition.getY() - 1));
-                break;
-            case 'D':
-                newPosition.setY((short) (newPosition.getY() + 1));
-                break;
-            case 'L':
                 newPosition.setX((short) (newPosition.getX() - 1));
                 break;
-            case 'R':
+            case 'D':
                 newPosition.setX((short) (newPosition.getX() + 1));
+                break;
+            case 'L':
+                newPosition.setY((short) (newPosition.getY() - 1));
+                break;
+            case 'R':
+                newPosition.setY((short) (newPosition.getY() + 1));
                 break;
             default:
                 throw new IllegalArgumentException("Invalid direction: " + direction);
@@ -180,7 +180,7 @@ public class Board {
         playerQueue.add(playerQueue.remove());
     }
     public String getCurrentPlayerName() {
-        return "Player number " + playerQueue.element().getPlayerNumber() + " (" + playerQueue.element().getName() + ")";
+        return "player number " + playerQueue.element().getPlayerNumber() + " (" + playerQueue.element().getName() + ")";
     }
     public Piece[][] getBoardState() {
         return board;

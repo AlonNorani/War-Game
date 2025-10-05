@@ -29,6 +29,6 @@ public class Fireball extends Weapon {
     }
     @Override
     public String toString() {
-        return "\uD83D\uDD25"; // Unicode for fire emoji
+        return "🔥"; // Unicode for fire emoji
     }
 }

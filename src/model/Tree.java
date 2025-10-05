@@ -13,6 +13,6 @@ public class Tree extends Piece {
     }
     @Override
     public String toString() {
-        return "\\uD83C\\uDF33";
+        return "🌳";
     }
 }
