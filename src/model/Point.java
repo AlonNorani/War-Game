@@ -1,3 +1,4 @@
+package model;
 /**
  * Point class represents a position on the board using x and y coordinates.
  */
@@ -15,19 +16,19 @@ public class Point {
         this.y = y;
     }
 
-    public short getX() {
+    short getX() {
         return x;
     }
 
-    public void setX(short x) {
+    void setX(short x) {
         this.x = x;
     }
 
-    public short getY() {
+    short getY() {
         return y;
     }
 
-    public void setY(short y) {
+    void setY(short y) {
         this.y = y;
     }
 }

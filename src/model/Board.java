@@ -1,3 +1,4 @@
+package model;
 import java.security.InvalidParameterException;
 import java.util.*;
 
@@ -14,26 +15,29 @@ public class Board {
     public static final int ROWS = 10;
     public static final int COLS = 10;
     // Player limits
-    private final int MIN_PLAYERS = 2;
-    private final int MAX_PLAYERS = 5;
+    public final int MIN_PLAYERS = 2;
+    public final int MAX_PLAYERS = 5;
 
 
     private Piece[][] board; // 2D array representing the board grid
-    private Vector<Player> players; // List of players on the board
+    private ArrayList<Player> players; // List of players on the board
     private Queue<Player> playerQueue;
 
     /**
-     * Constructs a Board and places players randomly.
-     *
-     * @param playersInfo Map of player IDs to player names
+     * Constructs a Board with empty grid and no players.
      */
-    public Board(Map<Integer, String> playersInfo) {
+    public Board() {
+
+        board = new Piece[ROWS][COLS];
+        players = new ArrayList<>(); // Initialize the players list
+
+    }
+    public void initializeBoard(Map<Integer, String> playersInfo) {
         // validate players amount
         if (playersInfo.size() < MIN_PLAYERS || playersInfo.size() > MAX_PLAYERS) {
             throw new IllegalArgumentException("Players amount must be between" + MIN_PLAYERS + " and " + MAX_PLAYERS);
         }
-        board = new Piece[ROWS][COLS];
-        players = new Vector<>(); // Initialize the players list
+
         // Place players randomly on the board
         for (Map.Entry<Integer, String> entry : playersInfo.entrySet()) {
             Point p = getEmptyRandomPosition();
@@ -41,6 +45,7 @@ public class Board {
             addEntity(newPlayer);
             players.add(newPlayer);
         }
+
         // shuffle players to randomize turn order
         Collections.shuffle(players);
         playerQueue = new LinkedList<>(players);
@@ -61,25 +66,24 @@ public class Board {
         }
 
     }
-
     private void addEntity(Piece piece) {
         Point position = piece.getPosition();
         board[position.getX()][position.getY()] = piece;
     }
 
-    public void removeEntity(Point position) {
+    private void removeEntity(Point position) {
         board[position.getX()][position.getY()] = null;
     }
 
-    public Piece getEntity(Point position) {
+    private Piece getEntity(Point position) {
         return board[position.getX()][position.getY()];
     }
 
-    public boolean isEmpty(Point position) {
+    private boolean isEmpty(Point position) {
         return board[position.getX()][position.getY()] == null;
     }
 
-    public boolean isInBoard(Point position) {
+    private boolean isInBoard(Point position) {
         return position.getX() >= 0 && position.getX() < ROWS && position.getY() >= 0 && position.getY() < COLS;
     }
 
@@ -100,16 +104,16 @@ public class Board {
         Point newPosition = new Point(currentPosition.getX(), currentPosition.getY());
         switch (Character.toUpperCase(direction)) {
             case 'U':
-                newPosition.setY((short) (newPosition.getY() - 1));
-                break;
-            case 'D':
-                newPosition.setY((short) (newPosition.getY() + 1));
-                break;
-            case 'L':
                 newPosition.setX((short) (newPosition.getX() - 1));
                 break;
-            case 'R':
+            case 'D':
                 newPosition.setX((short) (newPosition.getX() + 1));
+                break;
+            case 'L':
+                newPosition.setY((short) (newPosition.getY() - 1));
+                break;
+            case 'R':
+                newPosition.setY((short) (newPosition.getY() + 1));
                 break;
             default:
                 throw new IllegalArgumentException("Invalid direction: " + direction);
@@ -172,5 +176,14 @@ public class Board {
         removeEntity(currentPosition);
         currentPlayer.setPosition(newPosition);
         addEntity(currentPlayer);
+        // advance to next player's turn
+        playerQueue.add(playerQueue.remove());
     }
+    public String getCurrentPlayerName() {
+        return "player number " + playerQueue.element().getPlayerNumber() + " (" + playerQueue.element().getName() + ")";
+    }
+    public Piece[][] getBoardState() {
+        return board;
+    }
+
 }

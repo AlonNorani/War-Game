@@ -1,0 +1,105 @@
+@startuml
+
+' Model Classes
+class Board {
+  +ROWS: int
+  +COLS: int
+  +MIN_PLAYERS: int
+  +MAX_PLAYERS: int
+  -board: Piece[][]
+  -players: ArrayList<Player>
+  -playerQueue: Queue<Player>
+  +Board()
+  +initializeBoard(Map<Integer, String>)
+  ...
+}
+
+abstract class Piece {
+  #position: Point
+  +Piece(Point)
+  +getPosition()
+  +setPosition(Point)
+  +toString()
+}
+
+class Player extends Piece {
+  -weapons: Queue<Weapon>
+  -playerNumber: int
+  -name: String
+  +Player(Point, int, String)
+  +addWeapon(Weapon)
+  +getWeapon()
+  +getPlayerNumber()
+  +getName()
+  ...
+}
+
+class Tree extends Piece {
+  +Tree(Point)
+  +toString()
+}
+
+class Point {
+  -x: short
+  -y: short
+  +Point(short, short)
+  +getX()
+  +setX(short)
+  +getY()
+  +setY(short)
+}
+
+abstract class Weapon extends Piece {
+  +Weapon(Point)
+  +isStronger(Weapon)
+  +toString()
+}
+
+class Sword extends Weapon {
+  +Sword(Point)
+  +isStronger(Weapon)
+  +toString()
+}
+
+class Fireball extends Weapon {
+  +Fireball(Point)
+  +isStronger(Weapon)
+  +toString()
+}
+
+class MagicRing extends Weapon {
+  +MagicRing(Point)
+  +isStronger(Weapon)
+  +toString()
+}
+
+' View Classes
+abstract class UserInterfaceAbstract {
+  #board: Board
+  +UserInterfaceAbstract(Board)
+  +startGame()
+}
+
+class GameConsole extends UserInterfaceAbstract {
+  +GameConsole(Board)
+  +displayBoard()
+  +getValidPlayerCount(Scanner)
+  ...
+}
+
+' Relationships
+Board "1" o-- "*" Player
+Board "1" o-- "*" Piece
+Piece "1" o-- "1" Point
+Player "1" o-- "*" Weapon
+Weapon <|-- Sword
+Weapon <|-- Fireball
+Weapon <|-- MagicRing
+Piece <|-- Player
+Piece <|-- Tree
+Piece <|-- Weapon
+UserInterfaceAbstract <|-- GameConsole
+UserInterfaceAbstract "1" o-- "1" Board
+
+@enduml
+

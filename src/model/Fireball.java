@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Fireball class represents a fireball weapon on the board.
  * Implements isStronger logic for fireball vs other weapons.
@@ -18,11 +20,15 @@ public class Fireball extends Weapon {
      * @return true if this fireball is stronger, false otherwise
      */
     @Override
-    public boolean isStronger(Weapon other) {
+    boolean isStronger(Weapon other) {
         if (other instanceof Fireball) {
             // Lottery: 50% chance to win
             return Math.random() < 0.5;
         }
         return other instanceof Sword;
+    }
+    @Override
+    public String toString() {
+        return "🔥"; // Unicode for fire emoji
     }
 }

@@ -1,3 +1,4 @@
+package model;
 /**
  * Sword class represents a sword weapon on the board.
  * Implements isStronger logic for sword vs other weapons.
@@ -18,11 +19,16 @@ public class Sword extends Weapon {
      * @return true if this sword is stronger, false otherwise
      */
     @Override
-    public boolean isStronger(Weapon other) {
+    boolean isStronger(Weapon other) {
         if (other instanceof Sword) {
             // Lottery: 50% chance to win
             return Math.random() < 0.5;
         }
         return other instanceof MagicRing;
+    }
+
+    @Override
+    public String toString() {
+        return "🗡"; // Unicode for sword emoji
     }
 }

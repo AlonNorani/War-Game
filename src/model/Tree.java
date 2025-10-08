@@ -1,3 +1,4 @@
+package model;
 /**
  * Tree class represents a tree entity on the board.
  * Trees are obstacles and cannot be moved.
@@ -9,5 +10,9 @@ public class Tree extends Piece {
      */
     public Tree(Point position) {
         super(position);
+    }
+    @Override
+    public String toString() {
+        return "🌳";
     }
 }
