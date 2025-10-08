@@ -1,7 +1,6 @@
 package view;
 import model.Board;
 import model.Piece;
-
 import java.util.Map;
 import java.util.Scanner;
 import java.util.HashMap;
